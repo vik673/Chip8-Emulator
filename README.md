@@ -1,31 +1,26 @@
 # Chip8-Emulator
 A CHIP-8 emulator works by simulating a virtual machine that contains memory, registers, stack, timers, display, and keypad. CHIP-8 architecture consists of 4KB memory, 16 general purpose 8-bit registers, a 16-bit index register, a program counter, stack and stack pointer, delay timer and sound timer, a 64×32 pixel display, and a 16-key keypad. The program ROM is loaded into memory starting at address 0x200. The CPU executes instructions using a fetch–decode–execute cycle where each instruction is 2 bytes long. Some instructions perform arithmetic operations, some handle jumps and subroutines using the stack, some draw sprites to the display, and some handle keypad input. The emulator continuously runs this cycle to execute the game program.
 
-• 0x000 to 0x1FF (first 512 bytes) was reserved for the original CHIP-8 interpreter
-• The game programs were loaded after that, starting from address 0x200.
+1. 0x000 to 0x1FF (first 512 bytes) was reserved for the original CHIP-8 interpreter
+2. The game programs were loaded after that, starting from address 0x200.
 
 <img width="1292" height="674" alt="image" src="https://github.com/user-attachments/assets/e48d5a89-eb58-4482-82d3-02c9ebcf556c" />
 
+# Complete Flow of Emulator
+1. Initialize CHIP-8 system. 
+2. Load ROM into memory starting at 0x200. 
+3. Start emulation loop. 
+4. Fetch opcode from memory using PC. 
+5. Decode opcode using bit masking. 
+6. Execute instruction. 
+7. Update timers. 
+8. Update display buffer. 
+9. Handle keypad input. 
+10. Repeat loop until program ends.
+
+
 # Step 1:- Create CHIP-8 System Structure
-First, we create a structure that represents the whole CHIP-8 machine. This structure will contain memory, registers, stack, program counter, index register, timers, display buffer, and keypad state.
-
-main.cpp
-   |
-   v
-chip8.cpp → emulateCycle()
-   |
-   v
-opcode.cpp → executeOpcode()
-   |
-   v
-timer.cpp → updateTimers()
-   |
-   v
-display.cpp → drawDisplay()
-   |
-   v
-input.cpp → handleInput()
-
+First, we create a structure that represents the whole CHIP-8 machine. This structure will contain memory, registers, stack, program counter, index register, timers, display buffer, and keypad state
 
 In simple words, we are creating a software model of a small computer.
 The CHIP-8 system contains:
@@ -127,16 +122,3 @@ So graphics in CHIP-8 are basically turning pixels ON or OFF.
 CHIP-8 has 16 keys (0–F).
 We store keypad state in an array. When a key is pressed, we update that array. Some instructions check whether a key is pressed and act accordingly.
 So input handling is just checking keypad array values.
-
-Complete Flow of Emulator
-You can explain this flow in interview:
-	1. Initialize CHIP-8 system. 
-	2. Load ROM into memory starting at 0x200. 
-	3. Start emulation loop. 
-	4. Fetch opcode from memory using PC. 
-	5. Decode opcode using bit masking. 
-	6. Execute instruction. 
-	7. Update timers. 
-	8. Update display buffer. 
-	9. Handle keypad input. 
-	10. Repeat loop until program ends.
