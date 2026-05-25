@@ -4,7 +4,7 @@ A CHIP-8 emulator works by simulating a virtual machine that contains memory, re
 • 0x000 to 0x1FF (first 512 bytes) was reserved for the original CHIP-8 interpreter
 • The game programs were loaded after that, starting from address 0x200.
 
- <img width="1346" height="728" alt="image" src="https://github.com/user-attachments/assets/f13d534e-b49b-4a8d-9656-3da103aa8bab" />
+<img width="1292" height="674" alt="image" src="https://github.com/user-attachments/assets/e48d5a89-eb58-4482-82d3-02c9ebcf556c" />
 
 # Step 1:- Create CHIP-8 System Structure
 First, we create a structure that represents the whole CHIP-8 machine. This structure will contain memory, registers, stack, program counter, index register, timers, display buffer, and keypad state.
