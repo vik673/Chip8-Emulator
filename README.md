@@ -24,17 +24,17 @@ First, we create a structure that represents the whole CHIP-8 machine. This stru
 
 In simple words, we are creating a software model of a small computer.
 The CHIP-8 system contains:
-	1. 4096 bytes memory 
-	2. 16 registers (V0–VF) 
-	3. Index register (I) 
-	4. Program counter (PC) 
-	5. Stack 
-	6. Stack pointer 
-	7. Delay timer 
-	8. Sound timer 
-	9. Display buffer (64×32) 
-	10. Keypad (16 keys) 
-	11. Current opcode 
+1. 4096 bytes memory 
+2. 16 registers (V0–VF) 
+3. Index register (I) 
+4. Program counter (PC) 
+5. Stack 
+6. Stack pointer 
+7. Delay timer 
+8. Sound timer 
+9. Display buffer (64×32) 
+10. Keypad (16 keys) 
+11. Current opcode 
 This structure represents the complete virtual machine.
 
 # Step 2 – Initialize the Emulator
