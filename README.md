@@ -39,32 +39,32 @@ This structure represents the complete virtual machine.
 
 # Step 2 – Initialize the Emulator
 After creating the structure, we initialize everything:
-	1. Clear memory 
-	2. Clear registers 
-	3. Clear display 
-	4. Set PC = 0x200 
-	5. Load fontset into memory 
-	6. Reset timers 
-	7. Reset stack pointer 
+1. Clear memory 
+2. Clear registers 
+3. Clear display 
+4. Set PC = 0x200 
+5. Load fontset into memory 
+6. Reset timers 
+7. Reset stack pointer 
 The reason PC starts from 0x200 is because the first 512 bytes were reserved for interpreter in old systems, so programs start from 0x200.
 So initialization basically prepares the virtual machine to run a game ROM.
 
 # Step 3 – Load the ROM (Game Program)
 Next step is to load the CHIP-8 game file (ROM) into memory starting from address 0x200.
 So memory layout becomes:
-	1. 0x000–0x1FF → Reserved 
-	2 0x200–... → Game ROM 
+1. 0x000–0x1FF → Reserved 
+2 0x200–... → Game ROM 
 After loading ROM, the emulator is ready to execute instructions.
 
 # Step 4 – Emulation Cycle (Most Important Part)
 This is the heart of the emulator. The emulator runs in a loop and performs these steps repeatedly:
-	1. Fetch opcode from memory 
-	2. Decode opcode 
-	3. Execute opcode 
-	4. Update timers 
-	5. Update display 
-	6. Handle input 
-	7. Move to next instruction 
+1. Fetch opcode from memory 
+2. Decode opcode 
+3. Execute opcode 
+4. Update timers 
+5. Update display 
+6. Handle input 
+7. Move to next instruction 
 This is exactly how a real CPU works. This loop runs many times per second.
 This cycle is called the Fetch–Decode–Execute cycle, and this is very important for interviews.
 
@@ -72,43 +72,43 @@ This cycle is called the Fetch–Decode–Execute cycle, and this is very import
 Each CHIP-8 instruction is 2 bytes.
 So we read two consecutive memory locations and combine them into one opcode.
 Example concept:
-	1. Read memory[PC] 
-	2. Read memory[PC+1] 
-	3. Combine into opcode 
-	4. PC = PC + 2 
+1. Read memory[PC] 
+2. Read memory[PC+1] 
+3. Combine into opcode 
+4. PC = PC + 2 
 This means we fetched the next instruction.
 
 # Step 6 – Decode Opcode
 Now we check what instruction it is. CHIP-8 instructions are identified by their pattern.
 For example:
-	1. 00E0 → Clear screen 
-	2. 1NNN → Jump 
-	3. 6XNN → Set register 
-	4. 7XNN → Add value 
-	5. ANNN → Set index register 
-	6. DXYN → Draw sprite 
-	7. EX9E → Key pressed 
-	8. FX15 → Set delay timer 
+1. 00E0 → Clear screen 
+2. 1NNN → Jump 
+3. 6XNN → Set register 
+4. 7XNN → Add value 
+5. ANNN → Set index register 
+6. DXYN → Draw sprite 
+7. EX9E → Key pressed 
+8. FX15 → Set delay timer 
 So we use switch case or bit masking to decode opcode and determine which instruction it is.
 Decoding is basically understanding what the instruction wants the system to do.
 
 # Step 7 – Execute Opcode
 After decoding, we execute the instruction.
 Examples:
-	1. Clear screen → set display array to zero 
-	2. Jump → change PC 
-	3. Set register → store value in Vx 
-	4. Add → add value to register 
-	5. Draw → draw pixels on screen buffer 
-	6. Key press → check keypad array 
-	7. Call function → push PC to stack 
-	8. Return → pop PC from stack 
+1. Clear screen → set display array to zero 
+2. Jump → change PC 
+3. Set register → store value in Vx 
+4. Add → add value to register 
+5. Draw → draw pixels on screen buffer 
+6. Key press → check keypad array 
+7. Call function → push PC to stack 
+8. Return → pop PC from stack 
 This part is called instruction execution.
 
 # Step 8 – Timers
 CHIP-8 has two timers:
-	1. Delay timer 
-	2. Sound timer 
+1. Delay timer 
+2. Sound timer 
 They decrease at 60 Hz until they reach zero.
 When sound timer becomes non-zero, system makes a beep sound.
 So in emulator loop, we decrease timers regularly.
